@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% set active_page = "report" %}
+{% block content %}
+    <div class="row border-bottom content">
+        <div class="col-md-12">
+            <h3 class="text-center">Enter any of the options bellow to see report</h3>
+            <form action="">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="employeeName" class="col-md-4 col-form-label">Employee Name: </label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="text" id="employeeName"
+                                    placeholder="Enter Employee Name...">
+                            </div>
+                            <div class="offset-1"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="employeeID" class="col-md-4 col-form-label">ID:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="text" id="employeeID" placeholder="Enter Unic ID...">
+                            </div>
+                            <div class="offset-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="cardNo" class="col-md-4 col-form-label">Card No:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="text" id="cardNo" placeholder="Enter Card Number...">
+                            </div>
+                            <div class="offset-1"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="departmentName" class="col-md-4 col-form-label">Department:</label>
+                            <div class="col-md-7">
+                                <select class="form-control" id="departmentName" placeholder="Select Department">
+                                    <option>Admin</option>
+                                    <option>HR</option>
+                                    <option>R&D</option>
+                                    <option>Budiness Development</option>
+                                </select>
+                            </div>
+                            <div class="offset-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="startDate" class="col-md-4 col-form-label">From Date:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="date" id="startDate">
+                            </div>
+                            <div class="offset-1"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="endDate" class="col-md-4 col-form-label">To Date:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="date" id="endDate">
+                            </div>
+                            <div class="offset-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-warning alert-dismissible text-center">
+                    <strong>Warning!</strong> Make sure, you have created the schedule first.
+                </div>
+                <div class="col-md-12 ">
+                    <div class="form-group row text-center">
+                        <div class="col-md-3 offset-3">
+                            <input class="btn btn-danger" type="submit" id="delete" value="Reset">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="btn btn-primary" type="submit" id="edit" value="Report">
+                        </div>
+                        <div class="offset-3"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="report pt-4 border">
+                <h3 class="text-center">Attendance Report</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">In Time</th>
+                            <th scope="col">Out Time</th>
+                            <th scope="col">Working Hours</th>
+                            <th scope="col">Late Time</th>
+                            <th scope="col">Over Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">2020-08-19</th>
+                            <td>006</td>
+                            <td>Saeon</td>
+                            <td>09:00:00</td>
+                            <td>18:00:00</td>
+                            <td>09:00:00</td>
+                            <td>00:00:00</td>
+                            <td>00:00:00</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2020-08-19</th>
+                            <td>005</td>
+                            <td>Sakeef</td>
+                            <td>09:00:00</td>
+                            <td>19:00:30</td>
+                            <td>09:00:00</td>
+                            <td>00:00:00</td>
+                            <td>01:00:30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

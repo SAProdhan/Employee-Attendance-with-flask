@@ -1,0 +1,263 @@
+{% extends "layout.html" %}
+{% set active_page = "employee" %}
+{% block content %}
+<div class="row border-bottom py-2 content">
+    <div class="col-md-5">
+        <h3 class="text-center">Add Employee Information</h3>
+        <div class="d-flex justify-content-end py-2">
+            <div class="photo border">
+                <img id='img-upload' src="{{ image_file }}">
+            </div>
+        </div>
+        <form method="POST" action="/employee" id="employeeForm" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <div class="form-group row">
+                    {{ form.id.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {% if form.id.errors %}
+                        {{ form.id(class="form-control is-invalid", id="employeeID") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.id.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.id(class="form-control", id="employeeID") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form.name.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {{ form.name(class="form-control", id="employeeName") }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form.phone.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {% if form.phone.errors %}
+                        {{ form.phone(class="form-control is-invalid", id="phoneNumber") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.phone(class="form-control", id="phoneNumber") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form.email.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {% if form.email.errors %}
+                        {{ form.email(class="form-control is-invalid", id="employeeEmail") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.email(class="form-control", id="employeeEmail") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form.designation.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {{ form.designation(class="form-control", id="employeeDes") }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form.department.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {{ form.department(class="form-control", id="department") }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="shiftName" class="col-md-5 col-form-label">Select Shift:</label>
+                    <div class="col-md-7">
+                        <select class="form-control" id="shiftName">
+                            <option>Shift1</option>
+                            <option>Shift2</option>
+                            <option>Shift3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form.cardno.label(class="col-md-5 col-form-label") }}
+                    <div class="col-md-7">
+                        {% if form.cardno.errors %}
+                        {{ form.cardno(class="form-control is-invalid", id="cardNo") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.cardno.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.cardno(class="form-control", id="cardNo") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="imgInp" class="col-md-5 col-form-label">Photo:</label>
+                    <div class="input-group col-md-7">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                                Browse {{ form.picture(id="imgInp") }}
+                            </span>
+                        </span>
+                        <input type="text" class="form-control" id="imgf" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="cvInp" class="col-md-5 col-form-label">Add Documents:</label>
+                    <div class="input-group col-md-7">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                                Browse {{ form.document(id="cvInp") }}
+                            </span>
+                        </span>
+                        <input type="text" class="form-control" id="cvInpt" readonly>
+                    </div>
+                </div>
+
+                <div class="offset-1 col-md-10 offset-1">
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            {{ form.Add(class="btn btn-success") }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.Edit(class="btn btn-success nr") }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.Delete(class="btn btn-success nr") }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.Search(class="btn btn-success nr") }}
+                        </div>
+                        <div class="col-md-2">
+                            <input class="btn btn-success nr" type="submit" onClick="this.form.reset()" value="Reset">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h3 class="text-center">Employee Table</h3>
+        <table class="table table-hover" id="employeeTable">
+            <thead>
+                <tr>
+                    <th scope="col">Id.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Card No</th>
+                    <th scope="col" class="d-none"></th>
+                    <th scope="col" class="d-none"></th>
+                    <th scope="col" class="d-none"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <th scope="row">{{ employee.id}}</th>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.phone }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.designation }}</td>
+                    <td>{{ employee.cardno }}</td>
+                    <td class="d-none">{{ employee.image_file }}</td>
+                    <td class="d-none">{{ employee.department }}</td>
+                    <td class="d-none">{{ employee.documents }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="offset-1"></div>
+</div>
+<script>
+    var path = '{{image_file_path}}';
+    var table = document.getElementById('employeeTable');
+    for (var i = 1; i < table.rows.length; i++) {
+        table.rows[i].onclick = function () {
+            //rIndex = this.rowIndex;
+            document.getElementById("employeeID").value = this.cells[0].innerHTML;
+            document.getElementById("employeeName").value = this.cells[1].innerHTML;
+            document.getElementById("phoneNumber").value = this.cells[2].innerHTML;
+            document.getElementById("employeeEmail").value = this.cells[3].innerHTML;
+            document.getElementById("employeeDes").value = this.cells[4].innerHTML;
+            document.getElementById("cardNo").value = this.cells[5].innerHTML;
+            document.getElementById("imgf").value = this.cells[6].innerHTML;
+            document.getElementById("img-upload").src = path + this.cells[6].innerHTML;
+            document.getElementById("department").value = this.cells[7].innerHTML;
+            document.getElementById("cvInpt").value = this.cells[8].innerHTML;
+            document.getElementById("cvInp").value = this.cells[8].innerHTML;
+        };
+    }
+
+
+
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    });
+
+    var button = document.querySelector("input.nr");
+    button.onclick = function () {
+            alert("Hello!");
+        };
+
+
+
+    // document.getElementsByClassName("nr").onclick = function () {
+    // // var form = document.getElementById("employeeForm").elements;    
+    // //     for (var i = 0; i < form.length; i++) {
+    // //         if((i!=0) || (i!=6)){
+    // //             form[i].removeAttribute("required");
+    // //         }
+    // //     }
+
+    // };
+
+
+
+
+    // var inputs = document.getElementsByTagName("input");
+    // for (var i = 0; i < inputs.length; i++) {
+    //     inputs[i].required = true;
+    // }
+</script>
+{% endblock content %}

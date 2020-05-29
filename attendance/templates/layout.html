@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>Attendance System</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="{{ url_for('static', filename='multidatepicker/styles.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='multidatepicker//multidatespicker.js') }}"
+        type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="sidebar">
+            {% if current_user.is_authenticated %}
+            <h2 class="text-center">{{ current_user.username }}</h2>
+            <a class="button text-right" data-submit="parent" href="{{ url_for('logout') }}" rel="nofollow">
+                Log out
+              </a>
+            {% else %}
+            <a class="button" href="{{ url_for('login') }}">Login</a>
+            <a class="button" href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+            <a class="{{ 'active' if active_page == 'employee' else '' }}" href="{{ url_for('employee') }}">Employee</a>
+            <a class="{{ 'active' if active_page == 'department' else '' }}" href="{{ url_for('department') }}">Department</a>
+            <a class="{{ 'active' if active_page == 'shift' else '' }}" href="{{ url_for('shift') }}">Shift</a>
+            <a class="{{ 'active' if active_page == 'schedule' else '' }}" href="{{ url_for('schedule') }}">Schedule</a>
+            <a class="{{ 'active' if active_page == 'report' else '' }}" href="{{ url_for('report') }}">Report</a>
+
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} content text-center">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %} {% endblock %}
+    </div>
+</body>
+
+</html>

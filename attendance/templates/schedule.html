@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+{% set active_page = "schedule" %}
+{% block content %}
+  <div class="row content">
+    <div class="col-md-6">
+      <h3 class="offset-3 col-9">Create Schedule</h3>
+      <form action="">
+        <div class="form-group row">
+          <label for="employeeID" class="col-md-4 col-form-label">Employee Id: </label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" id="employeeID" placeholder="Enter employee Id">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="departmentName" class="col-md-4 col-form-label">Department:</label>
+          <div class="col-md-8">
+            <select class="form-control" id="departmentName">
+              <option>Admin</option>
+              <option>HR</option>
+              <option>Research and Development</option>
+              <option>Marketing</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="shiftName" class="col-md-4 col-form-label">Select Shift:</label>
+          <div class="col-md-8">
+            <select class="form-control" id="shiftName">
+              <option>Shift1</option>
+              <option>Shift2</option>
+              <option>Shift3</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="startDate" class="col-md-4 col-form-label">Start Date</label>
+          <div class="col-md-8">
+            <input class="form-control" type="date" id="startDate" multiple>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="endDate" class="col-md-4 col-form-label">End Time</label>
+          <div class="col-md-8">
+            <input class="form-control" type="date" id="endDate">
+          </div>
+        </div>
+        <div class="form-group row">
+          
+          <label for="selectedValues" class="col-md-4 col-form-label">Holiday</label>
+          <div class="col-md-8">
+            
+            <input type="text" id="selectedValues" class="date-values form-control" readonly />
+            <div id="parent" class="container" style="display:none;">
+              <div class="row header-row">
+                <div class="col-xs previous">
+                  <a href="#" id="previous" onclick="previous()">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div class="card-header month-selected col-sm" id="monthAndYear">
+                </div>
+                <div class="col-sm">
+                  <select class="form-control col-xs-6" name="month" id="month" onchange="change()"></select>
+                </div>
+                <div class="col-sm">
+                  <select class="form-control col-xs-6" name="year" id="year" onchange="change()"></select>
+                </div>
+                <div class="col-xs next">
+                  <a href="#" id="next" onclick="next()">
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+              <table id="calendar">
+                <thead>
+                  <tr>
+                    <th>S</th>
+                    <th>M</th>
+                    <th>T</th>
+                    <th>W</th>
+                    <th>T</th>
+                    <th>F</th>
+                    <th>S</th>
+                  </tr>
+                </thead>
+                <tbody id="calendarBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row text-center">
+          <div class="col-md-3">
+            <input class="btn btn-danger" type="submit" id="delete" value="Delete">
+          </div>
+          <div class="col-md-3">
+            <input class="btn btn-secondary" type="submit" id="edit" value="Edit">
+          </div>
+          <div class="col-md-3">
+            <input class="btn btn-primary" type="submit" id="add" value="Add">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h3 class="offset-4 col-8">Shift Table</h3>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Schedule Name</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Shift1</td>
+            <td>09:45:00</td>
+            <td>18:45:00</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Shift2</td>
+            <td>09:45:00</td>
+            <td>18:45:00</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Shift3</td>
+            <td>09:45:00</td>
+            <td>18:45:00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <h3 class="offset-4 col-md-8">Schedule Table</h3>
+      <table class="table table-hover" id="scheduleTable">
+        <thead>
+          <tr>
+            <th scope="col">Employee Id</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Shift Name</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">005</th>
+            <td>Sakeef</td>
+            <td>Research and Development</td>
+            <td>Shift1</td>
+            <td>2020-03-01</td>
+            <td>2020-03-31</td>
+          </tr>
+          <tr>
+            <th scope="row">006</th>
+            <td>Saeon</td>
+            <td>Marketing</td>
+            <td>Shift2</td>
+            <td>2020-03-01</td>
+            <td>2020-08-31</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    var table = document.getElementById('scheduleTable');
+    for (var i = 1; i < table.rows.length; i++) {
+      table.rows[i].onclick = function () {
+        //rIndex = this.rowIndex;
+        document.getElementById("employeeID").value = this.cells[0].innerHTML;
+        document.getElementById("departmentName").value = this.cells[2].innerHTML;
+        document.getElementById("shiftName").value = this.cells[3].innerHTML;
+        document.getElementById("startDate").value = this.cells[4].innerHTML;
+        document.getElementById("endDate").value = this.cells[5].innerHTML;
+      };
+    }
+  </script>
+{% endblock content %}

@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+{% set active_page = "department" %}
+{% block content %}
+<div class="row content">
+    <div class="col-md-12 py-2">
+        <h2 class="text-center">Create Department</h2>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group row">
+                        {{ form.department.label(class="col-md-4 col-form-label") }}
+                        <div class="col-md-8">
+                            {{ form.department(class="form-control", id="departmentName", placeholder="Enter Department Name...") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group row">
+                        {{ form.designation.label(class="col-md-4 col-form-label") }}
+                        <div class="col-md-8">
+                            {{ form.designation(class="form-control", id="employeeDes",placeholder="Enter Designation...") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-2 col-md-4">
+                    {{ form.Delete(class="form-control btn btn-danger", id="delete") }}
+                </div>
+                <div class="col-md-4">
+                    {{ form.Add(class="form-control btn btn-primary", id="edit") }}
+                </div>
+                <div class="offset-2">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="offset-1 col-md-10 py-2">
+        <h3 class="offset-4 col-md-8">Department and Designation</h3>
+        <ul class="list-group" id="departmentList">
+            {% for data in demo %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ data }}
+                <span class="badge badge-primary badge-pill">14</span>
+
+                <ul class="col-md-6 list-group d-none" id="designationList">
+                    {% for temp in demo[data] %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ temp }}
+                        <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+            <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Marketing
+                    <span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Admin
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li> -->
+        </ul>
+    </div>
+    <div class="col-md-1"></div>
+    <!-- <div class="col-5 py-2">
+        <h3 class="offset-4 col-md-8">Designation List</h3>
+        <ul class="list-group" id="designationList">
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                <span class="badge badge-primary badge-pill">14</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Marketing Executive
+                    <span class="badge badge-primary badge-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Admin Officer
+                    <span class="badge badge-primary badge-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Intern
+                    <span class="badge badge-primary badge-pill">2</span>
+                </li> 
+        </ul> 
+    </div>
+    <div class="col-1"></div>-->
+</div>
+<script>
+    // var demo = '{{demo}}';
+    // var myObj, txt = "";
+    // myObj = '{{d2_list}}';
+    // alert(myObj)
+    // for (x in myObj) {
+    //     txt +="<li class='list-group-item d-flex justify-content-between align-items-center'>"+ myObj[x].department +"<span class='badge badge-primary badge-pill'>14</span></li>";
+    // }
+    // document.getElementById("designationList").innerHTML = txt;
+    var selected, t = 1;
+
+    var items = document.querySelectorAll("#departmentList li"),
+        item2 = document.querySelectorAll("#designationList li"),
+        inputText = document.getElementById("departmentName"),
+        inputText2 = document.getElementById("employeeDes"),
+        temp = '';
+    for (var i = 0; i < items.length; i++) {
+        items[i].onclick = function () {
+            temp = this.innerHTML;
+            var temp_string = temp.split("<")
+            inputText.value = temp_string[0].trim();
+            var current = document.getElementsByClassName("test123");
+            if (current.length > 0) {
+                current[0].className = current[0].className.replace("test123", "d-none");
+            }
+            this.children[1].classList.remove("d-none");
+            this.children[1].classList.add("test123");
+
+
+            for (var i = 0; i < item2.length; i++) {
+                item2[i].onclick = function () {
+                    temp = this.innerHTML;
+                    var temp_string = temp.split("<")
+                    inputText2.value = temp_string[0].trim();
+                };
+            };
+        };
+    };
+
+
+
+</script>
+{% endblock content %}

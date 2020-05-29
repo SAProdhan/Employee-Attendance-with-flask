@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set active_page = "shift" %}
+{% block content %}
+<div class="row content">
+  <div class="col-md-5">
+    <h3 class="offset-3 col-md-9">Create Shift</h3>
+    <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="form-group row">
+        {{ form.name.label(class="col-md-4 col-form-label") }}
+        <!-- <label for="scheduleName" class="col-md-4 col-form-label">Shift name: </label> -->
+        <div class="col-md-8">
+          {{ form.name(class="form-control", id="shiftName") }}
+          <!-- <input class="" type="text" value="Shift" id="shiftName" required> -->
+        </div>
+      </div>
+      <div class="form-group row">
+        {{ form.start.label(class="col-md-4 col-form-label") }}
+        <!-- <label for="startTime" class="col-md-4 col-form-label">Start Time</label> -->
+        <div class="col-md-8">
+          {{ form.start(class="form-control", id="startTime") }}
+          <!-- <input class="form-control" type="time" id="startTime" required> -->
+        </div>
+      </div>
+      <div class="form-group row">
+        {{ form.end.label(class="col-md-4 col-form-label") }}
+        <!-- <label for="endTime" class="col-md-4 col-form-label">End Time</label> -->
+        <div class="col-md-8">
+          {{ form.end(class="form-control", id="endTime") }}
+          <!-- <input class="form-control" type="time" id="endTime" required> -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-2 col-md-3">
+          {{ form.Delete(class="form-control btn btn-danger text-center") }}
+          <!-- <input class="form-control btn btn-danger" type="submit" id="delete" value="Delete"> -->
+        </div>
+        <div class="col-md-3">
+          {{ form.Edit(class="form-control btn btn-secondary text-center") }}
+          <!-- <input class="form-control btn btn-secondary" type="submit" id="edit" value="Edit"> -->
+        </div>
+        <div class="col-md-3">
+          {{ form.Add(class="form-control btn btn-primary text-center") }}
+          <!-- <input class="form-control btn btn-primary" type="submit" id="add" value="Add"> -->
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-5">
+    <h3 class="offset-4 col-md-8">Shift Table</h3>
+    <table class="table table-hover" id="shiftTable">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Shift Name</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for shift in s_list %}
+        <tr>
+          <th scope="row">{{ s_list.index(shift)+1 }}</th>
+          <td>{{ shift.Name }}</td>
+          <td>{{ shift.SatartDate }}</td>
+          <td>{{ shift.EndDate }}</td>
+        </tr>
+        {% endfor %}
+        <!-- <tr>
+          <th scope="row">2</th>
+          <td>Shift2</td>
+          <td>09:45:00</td>
+          <td>18:45:00</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Shift3</td>
+          <td>09:45:00</td>
+          <td>18:45:00</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+  <div class="col-1"></div>
+</div>
+<script>
+  var table = document.getElementById('shiftTable');
+  for (var i = 1; i < table.rows.length; i++) {
+    table.rows[i].onclick = function () {
+      //rIndex = this.rowIndex;
+      document.getElementById("shiftName").value = this.cells[1].innerHTML;
+      document.getElementById("startTime").value = this.cells[2].innerHTML;
+      document.getElementById("endTime").value = this.cells[3].innerHTML;
+    };
+  }
+</script>
+{% endblock content %}
